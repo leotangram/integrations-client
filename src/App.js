@@ -1,23 +1,25 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import authToken from './config/token'
+import ProjectState from './context/projects/projectState'
+import TaskState from './context/tasks/taskState'
+import AlertState from './context/alerts/alertState'
+import AuthState from './context/auth/authState'
+import Routes from './routes/Routes'
+
+const token = localStorage.getItem('token')
+if (token) authToken(token)
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Integración Continua.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProjectState>
+      <TaskState>
+        <AlertState>
+          <AuthState>
+            <Routes />
+          </AuthState>
+        </AlertState>
+      </TaskState>
+    </ProjectState>
   )
 }
 
